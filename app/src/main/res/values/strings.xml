@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">FanSite</string>
+    <string name="fansite_logo_description">FanSite logo</string>
+    <string name="warning_icon_description">Security warning alert icon</string>
+    <string name="google_account_avatar_description">Google Firebase account profile photo</string>
+    <string name="auth_create_account_title">Create your FanSite account</string>
+    <string name="auth_create_account_subtitle">Sign in with your Google Firebase account to personalize your FanSite handle, save browser bookmarks, and browse securely.</string>
+    <string name="auth_handle_label">FanSite Handle (optional)</string>
+    <string name="auth_handle_placeholder">@yourname</string>
+    <string name="auth_sign_in_google">Create Account with Google</string>
+    <string name="auth_signing_in">Connecting to Google Firebase…</string>
+    <string name="browser_search_placeholder">Search Google or enter website URL…</string>
+    <string name="browser_menu_title">FanSite Browser Menu</string>
+    <string name="browser_home_label">FanSite Home (share.google)</string>
+    <string name="browser_open_chrome_label">Open in Google Chrome</string>
+    <string name="browser_camera_access_label">Website Camera Access</string>
+    <string name="browser_bookmarks_label">Saved Bookmarks</string>
+    <string name="browser_downloads_label">Download History</string>
+    <string name="browser_bookmark_added">Saved to FanSite bookmarks</string>
+    <string name="download_alert_title">File Download Warning</string>
+    <string name="download_alert_message">This website wants to download a file to your device. Only download files from websites you trust.</string>
+    <string name="download_alert_confirm">Download File</string>
+    <string name="download_alert_cancel">Cancel</string>
+    <string name="camera_alert_title">Website Camera Permission Warning</string>
+    <string name="camera_alert_message">This website is requesting access to your device camera. Granting camera permission lets the webpage capture live video.</string>
+    <string name="camera_alert_confirm">Allow Camera</string>
+    <string name="camera_alert_deny">Deny</string>
+    <string name="camera_permission_denied_msg">Camera permission denied. Website camera access remains blocked.</string>
+    <string name="camera_permission_granted_msg">Camera access granted for this website.</string>
+    <string name="account_sheet_title">FanSite Firebase Account</string>
+    <string name="account_save_profile">Save FanSite Profile</string>
+    <string name="account_sign_out">Sign Out</string>
+</resources>

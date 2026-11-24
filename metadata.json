@@ -1,0 +1,6 @@
+{
+  "name": "FanSite",
+  "description": "FanSite community app with Google Firebase account creation, white branded toolbar, integrated browser search, file download alerts, and website camera permission prompts.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

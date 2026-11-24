@@ -1,0 +1,78 @@
+{
+  "entities": {
+    "FanSiteAccount": {
+      "title": "FanSiteAccount",
+      "description": "Authenticated FanSite user profile tied to Firebase Google Sign-In.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Firebase Auth UID of the account owner."
+        },
+        "displayName": {
+          "type": "string",
+          "description": "Display name shown in the toolbar and profile."
+        },
+        "fanHandle": {
+          "type": "string",
+          "description": "FanSite community handle selected by the user."
+        },
+        "email": {
+          "type": "string",
+          "description": "Account email address (owner-only PII)."
+        },
+        "photoUrl": {
+          "type": "string",
+          "description": "Optional Google profile photo URL."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp set via FieldValue.serverTimestamp()."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp updated via FieldValue.serverTimestamp()."
+        }
+      },
+      "required": ["userId", "displayName", "fanHandle", "email", "createdAt", "updatedAt"]
+    },
+    "BrowserBookmark": {
+      "title": "BrowserBookmark",
+      "description": "Saved FanSite browser link or bookmark owned by the user.",
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Title of the bookmarked website."
+        },
+        "url": {
+          "type": "string",
+          "description": "Full URL of the bookmarked website."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp set via FieldValue.serverTimestamp()."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp updated via FieldValue.serverTimestamp()."
+        }
+      },
+      "required": ["title", "url", "createdAt", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/FanSiteAccount" },
+      "description": "Owner-isolated FanSite user profile documents."
+    },
+    "/users/{userId}/bookmarks/{bookmarkId}": {
+      "schema": { "$ref": "#/entities/BrowserBookmark" },
+      "description": "Per-user saved FanSite browser bookmarks."
+    }
+  }
+}
