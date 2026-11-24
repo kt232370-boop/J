@@ -2,6 +2,8 @@ name: Build FanSite APK
 
 on:
   push:
+    branches:
+      - '**'
   pull_request:
   workflow_dispatch:
 
@@ -9,6 +11,9 @@ jobs:
   build-apk:
     name: Build Debug APK
     runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout repository
@@ -22,20 +27,8 @@ jobs:
 
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
-
-      - name: Accept Android SDK licenses and install SDK 36
-        run: |
-          SDK_BIN="${ANDROID_HOME:-$ANDROID_SDK_ROOT}/cmdline-tools/latest/bin/sdkmanager"
-          if [ ! -x "$SDK_BIN" ]; then
-            SDK_BIN="$(command -v sdkmanager || true)"
-          fi
-          if [ -n "$SDK_BIN" ]; then
-            set +o pipefail
-            yes | "$SDK_BIN" --licenses > /dev/null 2>&1 || true
-            "$SDK_BIN" --update > /dev/null 2>&1 || true
-            yes | "$SDK_BIN" "platform-tools" "platforms;android-36.1" "build-tools;36.0.0" || \
-              yes | "$SDK_BIN" "platform-tools" "platforms;android-36" "build-tools;36.0.0" || true
-          fi
+        with:
+          packages: 'platform-tools'
 
       - name: Set up Gradle 9.3.1
         uses: gradle/actions/setup-gradle@v4
@@ -51,12 +44,25 @@ jobs:
           fi
 
       - name: Build Debug APK
-        run: gradle assembleDebug --no-daemon -Dorg.gradle.jvmargs="-Xmx3g -Dfile.encoding=UTF-8"
+        run: gradle assembleDebug --no-daemon --console=plain --stacktrace -Dorg.gradle.jvmargs="-Xmx3g -Dfile.encoding=UTF-8"
+
+      - name: Rename APK for release
+        run: cp app/build/outputs/apk/debug/app-debug.apk FanSite-debug.apk
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
           name: FanSite-debug-apk
-          path: app/build/outputs/apk/debug/app-debug.apk
+          path: FanSite-debug.apk
           if-no-files-found: error
           retention-days: 30
+
+      - name: Attach APK to GitHub Release
+        if: github.event_name != 'pull_request'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: latest-apk
+          name: FanSite Latest APK
+          files: FanSite-debug.apk
+          overwrite_files: true
+          fail_on_unmatched_files: true
